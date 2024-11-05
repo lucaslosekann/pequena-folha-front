@@ -24,7 +24,8 @@ export default {
         'close-menu': 'close-menu 0.5s ease-in-out',
       },
       colors: {
-        'own-brown': '#3A2C1F'
+        'own-brown': '#3A2C1F',
+        'own-green': '#376631'
       }
     },
   },
