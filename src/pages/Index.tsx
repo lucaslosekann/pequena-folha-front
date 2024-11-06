@@ -1,9 +1,9 @@
-import Header from "../components/Header";
+import Wrapper from "../components/Wrapper";
 
 export default function Index() {
     return (
-        <div className="w-full">
-            <Header />
-        </div>
+        <Wrapper>
+
+        </Wrapper>
     )
 }
