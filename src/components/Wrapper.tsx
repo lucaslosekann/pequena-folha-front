@@ -14,7 +14,7 @@ export default function Wrapper({
     return (
         <div className="w-full">
             <Header />
-            <div className={clsx('container mx-auto py-6', className)}>
+            <div className={clsx('container mx-auto py-6 text-justify', className)}>
                 {children}
             </div>
         </div>
