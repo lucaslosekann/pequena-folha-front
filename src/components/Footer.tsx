@@ -1,4 +1,3 @@
-import React from "react";
 import salaVerde from "../assets/sala_verde.gif";
 import univali from "../assets/logo_univali.webp";
 import youtube from "../assets/youtube.svg"
@@ -17,7 +16,7 @@ export default function Footer() {
                 {/* text-base == padrao
                     text-sm == small
                 */}
-                <div className="flex flex-col gap-2 sm:items-start items-center sm:text-base text-sm"> 
+                <div className="flex flex-col gap-2 sm:items-start items-center sm:text-left text-center sm:text-base text-sm">
                     <div className="leading-5">
                         <p>Sala Verde Itajaí - UNIVALI</p>
                         <p>E-mail: salaverde@univali.br</p>
@@ -31,13 +30,13 @@ export default function Footer() {
                     </div>
                     <div className="flex gap-3">
                         <a href="https://www.youtube.com/c/Laborat%C3%B3rioEduca%C3%A7%C3%A3oAmbiental">
-                            <img src={youtube} alt="YouTube" className="h-6 sm:h-8 "/>
+                            <img src={youtube} alt="YouTube" className="h-6 sm:h-8 " />
                         </a>
                         <a href="https://www.facebook.com/salaverdeitajaisc/">
-                            <img src={facebook} alt="Facebook" className="h-6 sm:h-8 "/>
+                            <img src={facebook} alt="Facebook" className="h-6 sm:h-8 " />
                         </a>
                         <a href="">
-                            <img src={whatsapp} alt="WhatsApp" className="h-6 sm:h-8 "/>
+                            <img src={whatsapp} alt="WhatsApp" className="h-6 sm:h-8 " />
                         </a>
                     </div>
                 </div>
