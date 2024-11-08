@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from './Header'
-import clsx from 'clsx'
 import Footer from './Footer'
+import { cn } from '../lib/utils'
 
 
 type WrapperProps = {
@@ -15,7 +15,7 @@ export default function Wrapper({
     return (
         <div className="w-full min-h-screen flex flex-col">
             <Header />
-            <div className={clsx('container mx-auto py-6 text-justify flex-1', className)}>
+            <div className={cn('container mx-auto py-6 text-justify flex-1', className)}>
                 {children}
             </div>
             <Footer />
