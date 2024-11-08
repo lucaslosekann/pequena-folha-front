@@ -1,6 +1,3 @@
-
 export default function AdminRegistrationsTab() {
-    return (
-        <div>AdminRegistrationsTab</div>
-    )
+    return <div>AdminRegistrationsTab</div>;
 }

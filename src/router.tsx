@@ -4,40 +4,38 @@ import Login from "./pages/Login";
 import About from "./pages/About";
 import Partners from "./pages/Partners";
 import Compostagem from "./pages/Compostagem";
-import Mav from "./pages/Mav"
+import Mav from "./pages/Mav";
 import Admin from "./pages/Admin";
-
-
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Index />
+        element: <Index />,
     },
     {
         path: "/entrar",
-        element: <Login />
+        element: <Login />,
     },
     {
         path: "/sobre",
-        element: <About />
+        element: <About />,
     },
     {
         path: "/parceiros",
-        element: <Partners />
+        element: <Partners />,
     },
     {
         path: "/compostagem",
-        element: <Compostagem/>
+        element: <Compostagem />,
     },
     {
         path: "/mav",
-        element: <Mav/>
+        element: <Mav />,
     },
     {
         path: "/admin",
-        element: <Admin />
-    }
-])
+        element: <Admin />,
+    },
+]);
 
 export default router;

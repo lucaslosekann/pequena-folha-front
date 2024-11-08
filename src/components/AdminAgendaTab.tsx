@@ -1,6 +1,3 @@
-
 export default function AdminAgendaTab() {
-    return (
-        <div>AdminAgendaTab</div>
-    )
+    return <div>AdminAgendaTab</div>;
 }

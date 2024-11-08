@@ -1,6 +1,3 @@
-
 export default function AdminPreviousEventsTab() {
-    return (
-        <div>AdminPreviousEventsTab</div>
-    )
+    return <div>AdminPreviousEventsTab</div>;
 }
