@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import Header from '../components/Header'
-import clsx from 'clsx'
 import AdminPreviousEventsTab from '../components/AdminPreviousEventsTab'
 import AdminAgendaTab from '../components/AdminAgendaTab'
 import AdminPartnersTab from '../components/AdminPartnersTab'
 import AdminRegistrationsTab from '../components/AdminRegistrationsTab'
+import { cn } from '../lib/utils'
 
 const TABS: {
     [key: string]: { label: string, component: React.ReactNode },
@@ -39,7 +39,7 @@ export default function Admin() {
                             <button
                                 key={key}
                                 onClick={() => setSelectedTab(key)}
-                                className={clsx(`px-8 py-2 rounded-lg`, selectedTab === key && 'bg-own-brown')}
+                                className={cn(`px-8 py-2 rounded-lg`, selectedTab === key && 'bg-own-brown')}
                             >
                                 {tab.label}
                             </button>
