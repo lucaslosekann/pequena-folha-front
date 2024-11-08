@@ -13,6 +13,7 @@ export default function Header() {
                         <img src={logo} alt='logo' className='h-[60px]' />
                     </a>
                     <nav className='flex gap-3 text-lg'>
+                        <a href='/admin'>Admin</a>
                         <a href='/'>Início</a>
                         <a href='/compostagem'>Compostagem</a>
                         <a href='/MAV'>MAV</a>
