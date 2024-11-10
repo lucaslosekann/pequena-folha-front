@@ -6,6 +6,7 @@ import Partners from "./pages/Partners";
 import Compostagem from "./pages/Compostagem";
 import Mav from "./pages/Mav";
 import Admin from "./pages/Admin";
+import Agenda from "./pages/Agenda";
 
 const router = createBrowserRouter([
     {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
     {
         path: "/admin",
         element: <Admin />,
+    },
+    {
+        path: "/agenda",
+        element: <Agenda />,
     },
 ]);
 
