@@ -6,6 +6,7 @@ import Partners from "./pages/Partners";
 import Compostagem from "./pages/Compostagem";
 import Mav from "./pages/Mav";
 import Admin from "./pages/Admin";
+import Formulary from "./pages/Formulary";
 
 const router = createBrowserRouter([
     {
@@ -36,6 +37,9 @@ const router = createBrowserRouter([
         path: "/admin",
         element: <Admin />,
     },
+    {path: "/formulario",
+    element: <Formulary />,
+},
 ]);
 
 export default router;

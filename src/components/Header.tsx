@@ -20,6 +20,7 @@ export default function Header() {
                         <a href="/agenda">Agenda</a>
                         <a href="/sobre">Sobre</a>
                         <a href="/entrar">Entrar</a>
+                        <a href="/formulario">Formulario</a>
                     </nav>
                 </div>
 
