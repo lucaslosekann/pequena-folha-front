@@ -1,5 +1,7 @@
 import Wrapper from "../components/Wrapper";
 import React, { useState } from "react";
+import TextInput from "../components/TextInput";
+import {Text, StyleSheet} from 'react-native';
 
 const Form = () => {
   const [name, setName] = useState("");
@@ -24,25 +26,38 @@ const Form = () => {
   return (
     <Wrapper className="flex flex-col gap-8 px-3 sm:px-0">
       <div>
-        <h2>Formulário de Compostagem Caseira</h2>
-        <form onSubmit={handleForm} className="flex flex-col">
-          <label>1) Nome Completo:</label>
-          <input
-            type="text"
-            placeholder="Nome completo"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+    
+      <h2  className= "flex text-left text-2xl font-semibold text-own-black sm:text-4xl justify-center ">
+   
+        Formulário de Compostagem Caseira
+        
+         </h2>
+        <form onSubmit={handleForm} className="flex  flex-col grid gap-8 justify-center ">
+        
+        <TextInput
+                            required
+                            label="Nome Completo "
+                            placeholder="Nome"
+                            type="text"
+                            name="Nome"
+                            containerClassName=" text-left w-full"
+                            labelClassName="text-black"
+                            inputClassName="border-black text-black"
+                        />
 
-          <label>Data do registro:</label>
-          <input
-            type="date"
-            placeholder="Data"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
-
-          <h3>Lixo Seco - Inorgânico - Recicláveis</h3>
+<TextInput
+                            required
+                            label="Data"
+                            placeholder="mm/dd/aa"
+                            type="date"
+                            name="Data"
+                            containerClassName="text-left w-full"
+                            labelClassName="text-black"
+                            inputClassName="border-black text-black"
+                        />
+            
+          
+          <h3 className= "flex text-left text-2xl font-semibold text-own-black sm:text-2xl justify-center ">Lixo Seco - Inorgânico - Recicláveis</h3>
 
           <label>1 - Volume total estimado (em litros):</label>
           <select name="volume" value={volume} onChange={(e) => setVolume(e.target.value)}>
@@ -54,26 +69,35 @@ const Form = () => {
           </select>
 
           {volume === "outro" && (
+
+            
             <>
-              <label>Especifique o volume:</label>
-              <input
-                type="text"
-                name="volumeOther"
-                placeholder="Outro"
-                value={volumeOther}
-                onChange={(e) => setVolumeOther(e.target.value)}
-              />
+            <TextInput
+                            required
+                            label="Especifique o Volume:"
+                            placeholder="Volume"
+                            type="text"
+                            name="Volume"
+                            containerClassName="text-left w-full"
+                            labelClassName="text-black"
+                            inputClassName="border-black text-black"
+                        />
+              
             </>
           )}
 
           <label>2 - Peso total (em gramas):</label>
-          <input
-            type="number"
-            name="weight"
-            placeholder="Peso (gramas)"
-            value={weight}
-            onChange={(e) => setWeight(e.target.value)}
-          />
+          <TextInput
+                            required
+                            label="Especifique o peso:"
+                            placeholder="Peso (gramas)"
+                            type="number"
+                            name="weight"
+                            containerClassName="text-left w-full"
+                            labelClassName="text-black"
+                            inputClassName="border-black text-black"
+                        />
+          
 
           <label>3 - Descrição do material:</label>
           <select
@@ -97,18 +121,20 @@ const Form = () => {
 
           {description.includes("outro") && (
             <>
-              <label>Especifique o material:</label>
-              <input
-                type="text"
-                name="descriptionOther"
-                placeholder="Outro"
-                value={descriptionOther}
-                onChange={(e) => setDescriptionOther(e.target.value)}
-              />
+             <TextInput
+                            required
+                            label="Especifique o material:"
+                            placeholder="Material"
+                            type="text"
+                            name="descriptionOther"
+                            containerClassName="text-left w-full"
+                            labelClassName="text-black"
+                            inputClassName="border-black text-black"
+                        />
             </>
           )}
 
-          <h3>Lixo Úmido - Orgânico</h3>
+          <h3 className= "flex text-left text-2xl font-semibold text-own-black sm:text-2xl justify-center ">Lixo Úmido - Orgânico</h3>
 
           <label>4 - Volume (Litros):</label>
           <select name="organicVolume" value={organicVolume} onChange={(e) => setOrganicVolume(e.target.value)}>
@@ -121,25 +147,30 @@ const Form = () => {
 
           {organicVolume === "outro" && (
             <>
-              <label>Especifique o volume:</label>
-              <input
-                type="text"
-                name="organicVolumeOther"
-                placeholder="Outro"
-                value={organicVolumeOther}
-                onChange={(e) => setOrganicVolumeOther(e.target.value)}
-              />
+            <TextInput
+                            required
+                            label="Especifique o volume:"
+                            placeholder="volume"
+                            type="text"
+                            name="organicVolumeOther"
+                            containerClassName="text-left w-full"
+                            labelClassName="text-black"
+                            inputClassName="border-black text-black"
+                        />
             </>
           )}
 
-          <label>5 - Peso (em gramas):</label>
-          <input
-            type="number"
-            name="organicWeight"
-            placeholder="Peso"
-            value={organicWeight}
-            onChange={(e) => setOrganicWeight(e.target.value)}
-          />
+
+          <TextInput
+                            required
+                            label="5- Peso (em gramas):"
+                            placeholder="Peso"
+                            type="text"
+                            name="organicWeight"
+                            containerClassName="text-left w-full"
+                            labelClassName="text-black"
+                            inputClassName="border-black text-black"
+                        />
 
           <label>6 - Descrição do material orgânico:</label>
           <select
@@ -161,30 +192,48 @@ const Form = () => {
 
           {organicDescription.includes("outro") && (
             <>
-              <label>Especifique o material orgânico:</label>
-              <input
-                type="text"
-                name="organicDescriptionOther"
-                placeholder="Outro"
-                value={organicDescriptionOther}
-                onChange={(e) => setOrganicDescriptionOther(e.target.value)}
-              />
+            <TextInput
+                            required
+                            label="Especifique o material orgânico:"
+                            placeholder="Descrição de material"
+                            type="text"
+                            name="organicDescriptionOther"
+                            containerClassName="text-left w-full"
+                            labelClassName="text-black"
+                            inputClassName="border-black text-black"
+                        />
             </>
           )}
+ <TextInput
+                            required
+                            label="7 - Rejeitos: Descreva os rejeitos gerados (materiais não recicláveis):"
+                            placeholder="Descrição de rejeitos"
+                            type="text"
+                            name="rejeitos"
+                            containerClassName="text-left w-full"
+                            labelClassName="text-black"
+                            inputClassName="border-black text-black"
+                        />
 
-          <label>7 - Rejeitos: Descreva os rejeitos gerados (materiais não recicláveis) e o volume</label>
-          <textarea
-            name="rejeitos"
-            placeholder="Rejeitos e Volume"
-            value={rejeitos}
-            onChange={(e) => setRejeitos(e.target.value)}
-          />
-
-          <button type="submit">Salvar</button>
+<TextInput
+                            required
+                            label="8 - Rejeitos: Descreva o volume dos rejeitos gerados:"
+                            placeholder="volume de rejeitos"
+                            type="number"
+                            name="rejeitos"
+                            containerClassName="text-left w-full"
+                            labelClassName="text-black"
+                            inputClassName="border-black text-black"
+                        />
+          <button className= "flex text-left text-2xl font-semibold text-own-black sm:text-2xl justify-center " type="submit">Salvar</button>
         </form>
       </div>
     </Wrapper>
   );
 };
+
+
+
+
 
 export default Form;
