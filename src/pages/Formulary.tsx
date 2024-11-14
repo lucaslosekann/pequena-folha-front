@@ -1,7 +1,7 @@
 import Wrapper from "../components/Wrapper";
 import React, { useState } from "react";
 import TextInput from "../components/TextInput";
-import {Text, StyleSheet} from 'react-native';
+
 
 const Form = () => {
   const [name, setName] = useState("");
@@ -9,16 +9,16 @@ const Form = () => {
   const [volume, setVolume] = useState("");
   const [volumeOther, setVolumeOther] = useState("");
   const [weight, setWeight] = useState("");
-  const [description, setDescription] = useState([]);
+  const [description, setDescription] = useState<string[]>([]);
   const [descriptionOther, setDescriptionOther] = useState("");
   const [organicVolume, setOrganicVolume] = useState("");
   const [organicVolumeOther, setOrganicVolumeOther] = useState("");
   const [organicWeight, setOrganicWeight] = useState("");
-  const [organicDescription, setOrganicDescription] = useState([]);
+  const [organicDescription, setOrganicDescription] = useState<string[]>([]);
   const [organicDescriptionOther, setOrganicDescriptionOther] = useState("");
   const [rejeitos, setRejeitos] = useState("");
 
-  const handleForm = (e) => {
+  const handleForm = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Formulário enviado!");
   };
@@ -27,7 +27,7 @@ const Form = () => {
     <Wrapper className="flex flex-col gap-8 px-3 sm:px-0">
       <div>
     
-      <h2  className= "flex text-left text-2xl font-semibold text-own-black sm:text-4xl justify-center ">
+      <h2  className= "flex text-left text-3xl font-semibold text-own-black sm:text-5xl justify-center mb-36">
    
         Formulário de Compostagem Caseira
         
@@ -40,8 +40,8 @@ const Form = () => {
                             placeholder="Nome"
                             type="text"
                             name="Nome"
-                            containerClassName=" text-left w-full"
-                            labelClassName="text-black"
+                            containerClassName=" text-left w-full   mb-10"
+                            labelClassName="text-black  text-2xl"
                             inputClassName="border-black text-black"
                         />
 
@@ -51,15 +51,29 @@ const Form = () => {
                             placeholder="mm/dd/aa"
                             type="date"
                             name="Data"
-                            containerClassName="text-left w-full"
-                            labelClassName="text-black"
+                            containerClassName="text-left w-full mb-10"
+                            labelClassName="text-black text-2xl"
                             inputClassName="border-black text-black"
                         />
             
           
-          <h3 className= "flex text-left text-2xl font-semibold text-own-black sm:text-2xl justify-center ">Lixo Seco - Inorgânico - Recicláveis</h3>
 
-          <label>1 - Volume total estimado (em litros):</label>
+
+
+
+
+
+
+          <h3 className= "flex text-left text-2xl font-semibold text-own-black sm:text-2xl justify-center mt-28  mb-28">Lixo Seco - Inorgânico - Recicláveis</h3>
+
+
+
+
+
+
+
+
+          <label className="text-black text-2xl">1 - Volume total estimado (em litros):</label>
           <select name="volume" value={volume} onChange={(e) => setVolume(e.target.value)}>
             <option value="5">Sacola de supermercado (5 Litros)</option>
             <option value="15">Saco de lixo (15 Litros)</option>
@@ -67,7 +81,7 @@ const Form = () => {
             <option value="50">Saco de lixo (50 Litros)</option>
             <option value="outro">Outro</option>
           </select>
-
+          <div className="mb-10">  </div>
           {volume === "outro" && (
 
             
@@ -78,28 +92,28 @@ const Form = () => {
                             placeholder="Volume"
                             type="text"
                             name="Volume"
-                            containerClassName="text-left w-full"
-                            labelClassName="text-black"
+                            containerClassName="text-left w-full -mt-10 mb-10"
+                            labelClassName="text-black text-2xl"
                             inputClassName="border-black text-black"
                         />
               
             </>
           )}
 
-          <label>2 - Peso total (em gramas):</label>
+<label className="text-black text-2xl">2 - Peso total (em gramas):</label>
           <TextInput
                             required
                             label="Especifique o peso:"
                             placeholder="Peso (gramas)"
                             type="number"
                             name="weight"
-                            containerClassName="text-left w-full"
-                            labelClassName="text-black"
+                            containerClassName="text-left w-full  mb-10"
+                            labelClassName="text-black text-2xl"
                             inputClassName="border-black text-black"
                         />
           
 
-          <label>3 - Descrição do material:</label>
+          <label className="text-black text-2xl">3 - Descrição do material:</label>
           <select
             name="description"
             multiple
@@ -118,7 +132,7 @@ const Form = () => {
             <option value="tetra_pak">Tetra Pak</option>
             <option value="outro">Outro</option>
           </select>
-
+          <div className="mb-10">  </div>
           {description.includes("outro") && (
             <>
              <TextInput
@@ -127,16 +141,16 @@ const Form = () => {
                             placeholder="Material"
                             type="text"
                             name="descriptionOther"
-                            containerClassName="text-left w-full"
-                            labelClassName="text-black"
+                            containerClassName="text-left w-full -mt-10 mb-10"
+                            labelClassName="text-black text-2xl"
                             inputClassName="border-black text-black"
                         />
             </>
           )}
 
-          <h3 className= "flex text-left text-2xl font-semibold text-own-black sm:text-2xl justify-center ">Lixo Úmido - Orgânico</h3>
+          <h3 className= "flex text-left text-2xl font-semibold text-own-black sm:text-2xl justify-center mt-28  mb-28">Lixo Úmido - Orgânico</h3>
 
-          <label>4 - Volume (Litros):</label>
+          <label className="text-black text-2xl">4 - Volume (Litros):</label>
           <select name="organicVolume" value={organicVolume} onChange={(e) => setOrganicVolume(e.target.value)}>
             <option value="2">1 pote de sorvete cheio</option>
             <option value="1">1/2 pote de sorvete</option>
@@ -144,7 +158,7 @@ const Form = () => {
             <option value="3">1 pote e 1/2 de sorvete</option>
             <option value="outro">Outro</option>
           </select>
-
+          <div className="mb-10">  </div>
           {organicVolume === "outro" && (
             <>
             <TextInput
@@ -153,8 +167,8 @@ const Form = () => {
                             placeholder="volume"
                             type="text"
                             name="organicVolumeOther"
-                            containerClassName="text-left w-full"
-                            labelClassName="text-black"
+                            containerClassName="text-left w-full -mt-20 mb-10"
+                            labelClassName="text-black text-2xl"
                             inputClassName="border-black text-black"
                         />
             </>
@@ -167,12 +181,12 @@ const Form = () => {
                             placeholder="Peso"
                             type="text"
                             name="organicWeight"
-                            containerClassName="text-left w-full"
-                            labelClassName="text-black"
+                            containerClassName="text-left w-full mb-10"
+                            labelClassName="text-black text-2xl"
                             inputClassName="border-black text-black"
                         />
 
-          <label>6 - Descrição do material orgânico:</label>
+<label className="text-black text-2xl ">6 - Descrição do material orgânico:</label>
           <select
             name="organicDescription"
             multiple
@@ -189,7 +203,7 @@ const Form = () => {
             <option value="casca_ovo">Casca de ovo</option>
             <option value="outro">Outro</option>
           </select>
-
+<div className="mb-10">  </div>
           {organicDescription.includes("outro") && (
             <>
             <TextInput
@@ -198,20 +212,22 @@ const Form = () => {
                             placeholder="Descrição de material"
                             type="text"
                             name="organicDescriptionOther"
-                            containerClassName="text-left w-full"
-                            labelClassName="text-black"
+                            containerClassName="text-left w-full -mt-20 mb-10"
+                            labelClassName="text-black text-2xl"
                             inputClassName="border-black text-black"
                         />
             </>
           )}
+<h3 className= "flex text-left text-2xl font-semibold text-own-black sm:text-2xl justify-center mt-28  mb-28">Rejeitos (materiais não recicláveis)</h3>
+
  <TextInput
                             required
-                            label="7 - Rejeitos: Descreva os rejeitos gerados (materiais não recicláveis):"
+                            label="7 - Rejeitos: Descreva os rejeitos gerados:"
                             placeholder="Descrição de rejeitos"
                             type="text"
                             name="rejeitos"
-                            containerClassName="text-left w-full"
-                            labelClassName="text-black"
+                            containerClassName="text-left w-full mb-10 "
+                            labelClassName="text-black text-2xl"
                             inputClassName="border-black text-black"
                         />
 
@@ -221,11 +237,11 @@ const Form = () => {
                             placeholder="volume de rejeitos"
                             type="number"
                             name="rejeitos"
-                            containerClassName="text-left w-full"
-                            labelClassName="text-black"
+                            containerClassName="text-left w-full mb-10"
+                            labelClassName="text-black text-2xl"
                             inputClassName="border-black text-black"
                         />
-          <button className= "flex text-left text-2xl font-semibold text-own-black sm:text-2xl justify-center " type="submit">Salvar</button>
+          <button className= "flex  text-3xl font-semibold text-own-black sm:text-3xl justify-center w-min mx-96  mt-20  mb-20" type="submit">Salvar</button>
         </form>
       </div>
     </Wrapper>
