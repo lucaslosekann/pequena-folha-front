@@ -4,3 +4,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.slick-slide {
+    margin: 0 15px;
+}
+.slick-track {
+    display: flex !important;
+    height: 100%;
+}
+/* the parent */

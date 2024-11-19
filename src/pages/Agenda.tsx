@@ -1,7 +1,6 @@
 //import React from "react";
 import Wrapper from "../components/Wrapper";
 import Slider from 'react-slick';
-import Modal from 'react-modal';
 import RightArrow from '../assets/RightArrow.svg';
 import LeftArrow from '../assets/LeftArrow.svg';
 
@@ -15,7 +14,7 @@ const Carrossel1 = () => {
         nextArrow: (
             <div>
                 <div className="next-slick-arrow">
-                    <img src={RightArrow} />
+                    <img src={RightArrow} className="-translate-y-full"/>
                 </div>
             </div>
         ),
@@ -23,7 +22,7 @@ const Carrossel1 = () => {
         prevArrow: (
             <div>
                 <div className="next-slick-arrow">
-                    <img src={LeftArrow} />
+                    <img src={LeftArrow} className="-translate-y-full"/>
                 </div>
             </div>
         ),
@@ -32,8 +31,8 @@ const Carrossel1 = () => {
     return (
         <div className="slider-container text-left ">
 
-            <Slider {...settings}>
-                <div className="border-4 border-own-green rounded-lg p-4 shadow-lg min-h-40">
+            <Slider {...settings} >
+                <div className="border-4 border-own-green rounded-lg p-4 shadow-lg h-full">
                     <h3>Slide 1</h3>
                     <h3>Data e Hora</h3>
                     <h3>Local</h3>
@@ -71,7 +70,7 @@ const Carrossel2 = () => {
         dots: true,
         infinite: true,
         speed: 500,
-        slidesToShow: 3,  // Quantidade de slides visíveis
+        slidesToShow: 4,  // Quantidade de slides visíveis
         slidesToScroll: 1,  // Quantidade de slides a rolar por vez
         nextArrow: (
             <div>
@@ -117,12 +116,6 @@ const Carrossel2 = () => {
                     <div 
                     key={index} 
                     className="border-4 border-own-green rounded-lg p-4 shadow-lg min-h-40"
-                    style={{
-                        display: 'flex',
-                        height: '300px',
-                        width: '300px',
-                        flexDirection: 'column',
-                    }}
                     >
                         <div
                         style={{
@@ -136,7 +129,7 @@ const Carrossel2 = () => {
                             alt={slide.title}
                             style={{
                                 width: '100%',
-                                height: '100%',
+                                aspectRatio: 1,
                                 objectFit: 'cover',
                             }}
                             />
@@ -168,7 +161,7 @@ export default function Agenda() {
                 <Carrossel1 />
             </div>
             <div className="h-10"></div>
-            <div>
+            <div className="mb-10">
                 <h2 className="mb-10 text-left text-2xl font-semibold text-own-green sm:text-4xl">EVENTOS ANTERIORES</h2>
                 <Carrossel2 />
             </div>
