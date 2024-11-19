@@ -5,7 +5,7 @@ import Modal from 'react-modal';
 import RightArrow from '../assets/RightArrow.svg';
 import LeftArrow from '../assets/LeftArrow.svg';
 
-const Carrossel = () => {
+const Carrossel1 = () => {
     const settings = {
         dots: true,
         infinite: true,
@@ -66,16 +66,111 @@ const Carrossel = () => {
     );
 };
 
+const Carrossel2 = () => {
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 3,  // Quantidade de slides visíveis
+        slidesToScroll: 1,  // Quantidade de slides a rolar por vez
+        nextArrow: (
+            <div>
+                <div className="next-slick-arrow">
+                    <img src={RightArrow} />
+                </div>
+            </div>
+        ),
+
+        prevArrow: (
+            <div>
+                <div className="next-slick-arrow">
+                    <img src={LeftArrow} />
+                </div>
+            </div>
+        ),
+    };
+
+    const slides = [
+        {
+            title: 'Slide 1',
+            image: 'https://via.placeholder.com/300',
+        },
+        {
+            title: 'Slide 2',
+            image: 'https://via.placeholder.com/300',
+        },
+        {
+            title: 'Slide 3',
+            image: 'https://via.placeholder.com/300',
+        },
+        {
+            title: 'Slide 4',
+            image: 'https://via.placeholder.com/300',
+        },
+    ]
+
+    return (
+        <div className="slider-container text-left ">
+
+            <Slider {...settings}>
+                {slides.map((slide, index) => (
+                    <div 
+                    key={index} 
+                    className="border-4 border-own-green rounded-lg p-4 shadow-lg min-h-40"
+                    style={{
+                        display: 'flex',
+                        height: '300px',
+                        width: '300px',
+                        flexDirection: 'column',
+                    }}
+                    >
+                        <div
+                        style={{
+                            flex: 7,
+                            overflow: 'hidden',
+                            borderBottom: '2px solid #ccc',
+                        }}
+                        >
+                            <img
+                            src={slide.image}
+                            alt={slide.title}
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                            }}
+                            />
+                        </div>
+                        <div
+                            style={{
+                                flex: 3,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                padding: '1px',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            <h3>{slide.title}</h3>
+                            <p>Tipo de Atividade</p>
+                        </div>
+                    </div>
+                ))}
+            </Slider>
+        </div>
+    );
+};
+
 export default function Agenda() {
     return (
-        <Wrapper >
+        <Wrapper>
             <div>
                 <h2 className="mb-10 text-left text-2xl font-semibold text-own-green sm:text-4xl">PRÓXIMOS EVENTOS</h2>
-                <Carrossel />
+                <Carrossel1 />
             </div>
+            <div className="h-10"></div>
             <div>
                 <h2 className="mb-10 text-left text-2xl font-semibold text-own-green sm:text-4xl">EVENTOS ANTERIORES</h2>
-                <Carrossel />
+                <Carrossel2 />
             </div>
         </Wrapper>
     );
