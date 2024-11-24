@@ -1,5 +1,6 @@
 import { useState } from "react";
 import logo from "../assets/logo.webp";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
@@ -12,15 +13,7 @@ export default function Header() {
                         <img src={logo} alt="logo" className="h-[60px]" />
                     </a>
                     <nav className="flex gap-3 text-lg">
-                        <a href="/admin">Admin</a>
-                        <a href="/">Início</a>
-                        <a href="/compostagem">Compostagem</a>
-                        <a href="/MAV">MAV</a>
-                        <a href="/parceiros">Parceiros</a>
-                        <a href="/agenda">Agenda</a>
-                        <a href="/sobre">Sobre</a>
-                        <a href="/entrar">Entrar</a>
-                        <a href="/formulario">Formulario</a>
+                        <Routes />
                     </nav>
                 </div>
 
@@ -56,16 +49,26 @@ export default function Header() {
                         </svg>
                     </button>
                     <nav className="flex flex-col gap-3 text-right text-lg">
-                        <a href="/">Início</a>
-                        <a href="/compostagem">Compostagem</a>
-                        <a href="/MAV">MAV</a>
-                        <a href="/parceiros">Parceiros</a>
-                        <a href="/agenda">Agenda</a>
-                        <a href="/sobre">Sobre</a>
-                        <a href="/entrar">Entrar</a>
+                        <Routes />
                     </nav>
                 </div>
             </div>
         </header>
     );
 }
+
+const Routes = () => {
+    const { isLoggedIn, user } = useAuth();
+    return (
+        <>
+            {user?.isAdmin && <a href="/admin">Admin</a>}
+            <a href="/">Início</a>
+            <a href="/compostagem">Compostagem</a>
+            <a href="/MAV">MAV</a>
+            <a href="/parceiros">Parceiros</a>
+            <a href="/agenda">Agenda</a>
+            <a href="/sobre">Sobre</a>
+            {isLoggedIn ? <a href="/formulario">Formulario</a> : <a href="/entrar">Entrar</a>}
+        </>
+    );
+};

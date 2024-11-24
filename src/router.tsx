@@ -7,39 +7,73 @@ import Compostagem from "./pages/Compostagem";
 import Mav from "./pages/Mav";
 import Admin from "./pages/Admin";
 import Formulary from "./pages/Formulary";
+import AuthMiddleware, { AuthType } from "./components/AuthMiddleware";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Index />,
+        element: (
+            <AuthMiddleware type={AuthType.PUBLIC}>
+                <Index />
+            </AuthMiddleware>
+        ),
     },
     {
         path: "/entrar",
-        element: <Login />,
+        element: (
+            <AuthMiddleware type={AuthType.PUBLIC}>
+                <Login />
+            </AuthMiddleware>
+        ),
     },
     {
         path: "/sobre",
-        element: <About />,
+        element: (
+            <AuthMiddleware type={AuthType.PUBLIC}>
+                <About />
+            </AuthMiddleware>
+        ),
     },
     {
         path: "/parceiros",
-        element: <Partners />,
+        element: (
+            <AuthMiddleware type={AuthType.PUBLIC}>
+                <Partners />
+            </AuthMiddleware>
+        ),
     },
     {
         path: "/compostagem",
-        element: <Compostagem />,
+        element: (
+            <AuthMiddleware type={AuthType.PUBLIC}>
+                <Compostagem />
+            </AuthMiddleware>
+        ),
     },
     {
         path: "/mav",
-        element: <Mav />,
+        element: (
+            <AuthMiddleware type={AuthType.PUBLIC}>
+                <Mav />
+            </AuthMiddleware>
+        ),
     },
     {
         path: "/admin",
-        element: <Admin />,
+        element: (
+            <AuthMiddleware type={AuthType.ADMIN}>
+                <Admin />
+            </AuthMiddleware>
+        ),
     },
-    {path: "/formulario",
-    element: <Formulary />,
-},
+    {
+        path: "/formulario",
+        element: (
+            <AuthMiddleware type={AuthType.PRIVATE}>
+                <Formulary />
+            </AuthMiddleware>
+        ),
+    },
 ]);
 
 export default router;

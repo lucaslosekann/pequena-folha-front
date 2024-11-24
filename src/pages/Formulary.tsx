@@ -7,12 +7,14 @@ import MultiSelect from "../components/MultiSelect";
 import lixoOrganico from "../assets/lixo_organico.jpg";
 import { toast } from "react-toastify";
 import { submitForm } from "../services/api";
+import { useAuth } from "../contexts/AuthContext";
 
 const Form = () => {
     const [inorganicVolume, setInorganicVolume] = useState("");
     const [organicVolume, setOrganicVolume] = useState("");
     const [inorganicDescription, setInorganicDescription] = useState<string[]>([]);
     const [organicDescription, setOrganicDescription] = useState<string[]>([]);
+    const { user, logout } = useAuth();
 
     const handleForm = (e: React.FormEvent) => {
         e.preventDefault();
@@ -45,6 +47,8 @@ const Form = () => {
             .then(() => {
                 toast.success("Formulário enviado com sucesso");
                 (e.target as HTMLFormElement).reset();
+                setInorganicDescription([]);
+                setOrganicDescription([]);
             })
             .catch((er) => {
                 console.error(er);
@@ -56,9 +60,18 @@ const Form = () => {
         <div className="bg-[rgb(240,236,220)]">
             <Wrapper className="my-3 flex w-[95%] flex-col gap-8 rounded-md bg-white px-1 sm:max-w-[620px] sm:px-4">
                 <div>
-                    <h2 className="text-own-black mb-10 mt-5 flex justify-center text-center text-2xl font-semibold sm:text-3xl">
-                        Formulário de Compostagem Caseira
-                    </h2>
+                    <div className="mb-10">
+                        <h2 className="text-own-black mb-2 mt-5 flex justify-center text-center text-2xl font-semibold sm:text-3xl">
+                            Formulário de Compostagem Caseira
+                        </h2>
+                        <p className="px-4">
+                            Logado como: <strong>{user?.name}</strong>, para trocar de conta{" "}
+                            <span className="cursor-pointer text-blue-500" onClick={logout}>
+                                clique aqui
+                            </span>
+                        </p>
+                    </div>
+
                     <form onSubmit={handleForm} className="flex flex-col justify-center gap-8 px-4">
                         <div className="flex flex-col justify-center gap-8">
                             <TextInput

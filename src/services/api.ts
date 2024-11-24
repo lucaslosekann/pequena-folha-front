@@ -21,3 +21,8 @@ export function getPartnerImageUrl(id: number) {
 export async function submitForm(data: FormData) {
     await instance.post("/form", data);
 }
+
+export async function login(data: { email: string; password: string }) {
+    const response = await instance.post("/login", data);
+    return response.data;
+}
