@@ -28,5 +28,5 @@ export function getPartnerImageUrl(id: number) {
 
 export async function getAgenda() {
     const response = await instance.get<Agenda[]>("/agenda");
-    return response.data
+    return response.data;
 }

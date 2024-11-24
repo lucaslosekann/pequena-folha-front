@@ -9,7 +9,7 @@ export default function Partners() {
         getPartners().then((response) => {
             setPartners(response);
         });
-    }, [partners]);
+    }, []);
 
     return (
         <Wrapper className="px-6 sm:px-0">

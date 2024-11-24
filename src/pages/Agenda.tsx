@@ -5,11 +5,15 @@ import RightArrow from "../assets/RightArrow.svg";
 import LeftArrow from "../assets/LeftArrow.svg";
 import { getAgenda, Agenda as AgendaType } from "../services/api";
 
-type EventsProps = {
-    eventsArray: AgendaType[];
-};
+export const CarrosselProximosEventos = () => {
+    const [nextEventsArray, setAgenda] = React.useState<AgendaType[]>([]);
 
-const CarrosselProximosEventos = ({ eventsArray: nextEventsArray }: EventsProps) => {
+    useEffect(() => {
+        getAgenda().then((response) => {
+            setAgenda(response);
+        });
+    }, []);
+
     const settings = {
         dots: true,
         infinite: true,
@@ -117,19 +121,11 @@ const CarrosselEventosAnteriores = () => {
 };
 
 export default function Agenda() {
-    const [nextEvents, setAgenda] = React.useState<AgendaType[]>([]);
-
-    useEffect(() => {
-        getAgenda().then((response) => {
-            setAgenda(response);
-        });
-    }, []);
-
     return (
         <Wrapper>
             <div>
                 <h2 className="mb-10 text-left text-2xl font-semibold text-own-green sm:text-4xl">PRÓXIMOS EVENTOS</h2>
-                <CarrosselProximosEventos eventsArray={nextEvents} />
+                <CarrosselProximosEventos />
             </div>
             <div className="h-10"></div>
             <div className="mb-10">
