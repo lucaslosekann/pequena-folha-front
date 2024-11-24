@@ -3,7 +3,7 @@ import { cn } from "../lib/utils";
 
 type TextInputProps = {
     label?: string;
-    type: "text" | "password";
+    type: "text" | "password" | "date";
     containerClassName?: string;
     labelClassName?: string;
     inputClassName?: string;

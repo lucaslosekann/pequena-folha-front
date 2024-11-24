@@ -1,255 +1,308 @@
 import Wrapper from "../components/Wrapper";
 import React, { useState } from "react";
 import TextInput from "../components/TextInput";
-
+import Button from "../components/Button";
+import lixoSeco from "../assets/LIXOSECO.jpg";
+import MultiSelect from "../components/MultiSelect";
+import lixoOrganico from "../assets/lixo_organico.jpg";
+import { toast } from "react-toastify";
+import { submitForm } from "../services/api";
 
 const Form = () => {
-  const [name, setName] = useState("");
-  const [date, setDate] = useState("");
-  const [volume, setVolume] = useState("");
-  const [volumeOther, setVolumeOther] = useState("");
-  const [weight, setWeight] = useState("");
-  const [description, setDescription] = useState<string[]>([]);
-  const [descriptionOther, setDescriptionOther] = useState("");
-  const [organicVolume, setOrganicVolume] = useState("");
-  const [organicVolumeOther, setOrganicVolumeOther] = useState("");
-  const [organicWeight, setOrganicWeight] = useState("");
-  const [organicDescription, setOrganicDescription] = useState<string[]>([]);
-  const [organicDescriptionOther, setOrganicDescriptionOther] = useState("");
-  const [rejeitos, setRejeitos] = useState("");
+    const [inorganicVolume, setInorganicVolume] = useState("");
+    const [organicVolume, setOrganicVolume] = useState("");
+    const [inorganicDescription, setInorganicDescription] = useState<string[]>([]);
+    const [organicDescription, setOrganicDescription] = useState<string[]>([]);
 
-  const handleForm = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Formulário enviado!");
-  };
+    const handleForm = (e: React.FormEvent) => {
+        e.preventDefault();
+        const formData = new FormData(e.target as HTMLFormElement);
+        if (inorganicDescription.length == 0) {
+            return toast.error("Descrição do material inorganico não pode ser vazia");
+        }
 
-  return (
-    <Wrapper className="flex flex-col gap-8 px-3 sm:px-0">
-      <div>
-    
-      <h2  className= "flex text-left text-3xl font-semibold text-own-black sm:text-5xl justify-center mb-36">
-   
-        Formulário de Compostagem Caseira
-        
-         </h2>
-        <form onSubmit={handleForm} className="flex  flex-col grid gap-8 justify-center ">
-        
-        <TextInput
-                            required
-                            label="Nome Completo "
-                            placeholder="Nome"
-                            type="text"
-                            name="Nome"
-                            containerClassName=" text-left w-full   mb-10"
-                            labelClassName="text-black  text-2xl"
-                            inputClassName="border-black text-black"
-                        />
+        if (organicDescription.length == 0) {
+            return toast.error("Descrição do material organico não pode ser vazia");
+        }
 
-<TextInput
-                            required
-                            label="Data"
-                            placeholder="mm/dd/aa"
-                            type="date"
-                            name="Data"
-                            containerClassName="text-left w-full mb-10"
-                            labelClassName="text-black text-2xl"
-                            inputClassName="border-black text-black"
-                        />
-            
-          
+        if (formData.getAll("organicResidueComposition").length > 5) {
+            return toast.error("O número máximo de fotos é 5");
+        }
 
+        if (formData.getAll("inorganicResidueComposition").length > 5) {
+            return toast.error("O número máximo de fotos é 5");
+        }
 
+        for (const desc of inorganicDescription) {
+            formData.append("inorganicDescription[]", desc);
+        }
 
+        for (const desc of organicDescription) {
+            formData.append("organicDescription[]", desc);
+        }
 
+        submitForm(formData)
+            .then(() => {
+                toast.success("Formulário enviado com sucesso");
+                (e.target as HTMLFormElement).reset();
+            })
+            .catch((er) => {
+                console.error(er);
+                toast.error("Erro ao enviar formulário");
+            });
+    };
 
+    return (
+        <div className="bg-[rgb(240,236,220)]">
+            <Wrapper className="my-3 flex w-[95%] flex-col gap-8 rounded-md bg-white px-1 sm:max-w-[620px] sm:px-4">
+                <div>
+                    <h2 className="text-own-black mb-10 mt-5 flex justify-center text-center text-2xl font-semibold sm:text-3xl">
+                        Formulário de Compostagem Caseira
+                    </h2>
+                    <form onSubmit={handleForm} className="flex flex-col justify-center gap-8 px-4">
+                        <div className="flex flex-col justify-center gap-8">
+                            <TextInput
+                                required
+                                label="Data"
+                                placeholder="mm/dd/aa"
+                                type="date"
+                                name="date"
+                                containerClassName="text-left w-full"
+                                labelClassName="text-black"
+                                inputClassName="border-black text-black"
+                            />
+                        </div>
 
+                        <div className="flex flex-col gap-6">
+                            <div>
+                                <h3 className="mb-2 flex justify-center text-left text-2xl">Lixo Seco - Inorgânico - Recicláveis</h3>
+                                <img src={lixoSeco} className="mx-auto w-[90%] rounded-md" />
+                            </div>
 
-          <h3 className= "flex text-left text-2xl font-semibold text-own-black sm:text-2xl justify-center mt-28  mb-28">Lixo Seco - Inorgânico - Recicláveis</h3>
+                            <div className="text-left">
+                                <label htmlFor="volume" className="text-lg">
+                                    1 - Volume total estimado (em litros):
+                                </label>
 
+                                <select
+                                    id="volume"
+                                    value={inorganicVolume}
+                                    onChange={(e) => setInorganicVolume(e.target.value)}
+                                    name="inorganicVolume"
+                                    required
+                                    className="mt-2 w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900"
+                                >
+                                    <option value="5">Sacola de supermercado (5 Litros)</option>
+                                    <option value="15">Saco de lixo (15 Litros)</option>
+                                    <option value="30">Saco de lixo (30 Litros)</option>
+                                    <option value="50">Saco de lixo (50 Litros)</option>
+                                    <option value="outro">Outro</option>
+                                </select>
 
+                                {inorganicVolume === "outro" && (
+                                    <TextInput
+                                        required
+                                        label="Especifique o Volume:"
+                                        placeholder="Volume"
+                                        type="text"
+                                        name="inorganicVolumeOther"
+                                        containerClassName="text-left w-full mt-4"
+                                        labelClassName="text-black"
+                                        inputClassName="border-black text-black"
+                                        inputMode="numeric"
+                                        pattern="[0-9]*"
+                                    />
+                                )}
+                            </div>
 
+                            <div>
+                                <TextInput
+                                    required
+                                    label="2 - Peso total (em gramas):"
+                                    placeholder="Peso (gramas)"
+                                    type="text"
+                                    name="inorganicWeight"
+                                    containerClassName="text-left w-full"
+                                    labelClassName="text-black"
+                                    inputClassName="border-black text-black"
+                                    inputMode="numeric"
+                                    pattern="[0-9]*"
+                                />
+                            </div>
 
+                            <div className="flex flex-col">
+                                <label className="text-xl">3 - Descrição do material:</label>
 
+                                <MultiSelect
+                                    options={[
+                                        { value: "garrafa_pet", label: "Garrafa PET" },
+                                        { value: "isopor", label: "Isopor" },
+                                        { value: "vidro", label: "Vidro" },
+                                        { value: "papel", label: "Papel" },
+                                        { value: "plastico", label: "Plástico" },
+                                        { value: "papelao", label: "Papelão" },
+                                        { value: "metal", label: "Metal" },
+                                        { value: "tetra_pak", label: "Tetra Pak" },
+                                        { value: "outro", label: "Outro" },
+                                    ]}
+                                    onChange={setInorganicDescription}
+                                    selected={inorganicDescription}
+                                />
+                                {inorganicDescription.includes("outro") && (
+                                    <>
+                                        <TextInput
+                                            required
+                                            label="Especifique o material:"
+                                            placeholder="Material"
+                                            type="text"
+                                            name="inorganicDescriptionOther"
+                                            containerClassName="text-left w-full mt-4"
+                                            labelClassName="text-black"
+                                            inputClassName="border-black text-black"
+                                        />
+                                    </>
+                                )}
+                            </div>
+                            <div>
+                                <h2 className="text-lg">Poste aqui a foto evidenciando a composição do seu resíduo: (max 5)</h2>
+                                <input type="file" name="inorganicResidueComposition" multiple accept="image/*" />
+                            </div>
+                        </div>
 
+                        <div className="mt- flex flex-col gap-6">
+                            <div>
+                                <h3 className="mb-2 flex justify-center text-left text-2xl">Lixo Úmido - Orgânico</h3>
+                                <img src={lixoOrganico} className="mx-auto w-[90%] rounded-md" />
+                            </div>
 
+                            <div className="text-left">
+                                <label htmlFor="volume" className="text-lg">
+                                    4 - Volume (Litros):
+                                </label>
 
-          <label className="text-black text-2xl">1 - Volume total estimado (em litros):</label>
-          <select name="volume" value={volume} onChange={(e) => setVolume(e.target.value)}>
-            <option value="5">Sacola de supermercado (5 Litros)</option>
-            <option value="15">Saco de lixo (15 Litros)</option>
-            <option value="30">Saco de lixo (30 Litros)</option>
-            <option value="50">Saco de lixo (50 Litros)</option>
-            <option value="outro">Outro</option>
-          </select>
-          <div className="mb-10">  </div>
-          {volume === "outro" && (
+                                <select
+                                    id="volume"
+                                    value={organicVolume}
+                                    onChange={(e) => setOrganicVolume(e.target.value)}
+                                    name="organicVolume"
+                                    required
+                                    className="mt-2 w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900"
+                                >
+                                    <option value="2">1 pote de sorvete cheio</option>
+                                    <option value="1">1/2 pote de sorvete</option>
+                                    <option value="4">2 potes de sorvete cheios</option>
+                                    <option value="3">1 pote e 1/2 de sorvete</option>
+                                    <option value="outro">Outro</option>
+                                </select>
 
-            
-            <>
-            <TextInput
-                            required
-                            label="Especifique o Volume:"
-                            placeholder="Volume"
-                            type="text"
-                            name="Volume"
-                            containerClassName="text-left w-full -mt-10 mb-10"
-                            labelClassName="text-black text-2xl"
-                            inputClassName="border-black text-black"
-                        />
-              
-            </>
-          )}
+                                {organicVolume === "outro" && (
+                                    <TextInput
+                                        required
+                                        label="Especifique o Volume:"
+                                        placeholder="Volume"
+                                        type="text"
+                                        name="organicVolumeOther"
+                                        containerClassName="text-left w-full mt-4"
+                                        labelClassName="text-black"
+                                        inputClassName="border-black text-black"
+                                        inputMode="numeric"
+                                        pattern="[0-9]*"
+                                    />
+                                )}
+                            </div>
 
-<label className="text-black text-2xl">2 - Peso total (em gramas):</label>
-          <TextInput
-                            required
-                            label="Especifique o peso:"
-                            placeholder="Peso (gramas)"
-                            type="number"
-                            name="weight"
-                            containerClassName="text-left w-full  mb-10"
-                            labelClassName="text-black text-2xl"
-                            inputClassName="border-black text-black"
-                        />
-          
+                            <div>
+                                <TextInput
+                                    required
+                                    label="5- Peso (em gramas):"
+                                    placeholder="Peso"
+                                    type="text"
+                                    name="organicWeight"
+                                    containerClassName="text-left w-full"
+                                    labelClassName="text-black"
+                                    inputClassName="border-black text-black"
+                                    inputMode="numeric"
+                                    pattern="[0-9]*"
+                                />
+                            </div>
 
-          <label className="text-black text-2xl">3 - Descrição do material:</label>
-          <select
-            name="description"
-            multiple
-            value={description}
-            onChange={(e) =>
-              setDescription(Array.from(e.target.selectedOptions, (option) => option.value))
-            }
-          >
-            <option value="garrafa_pet">Garrafa PET</option>
-            <option value="isopor">Isopor</option>
-            <option value="vidro">Vidro</option>
-            <option value="papel">Papel</option>
-            <option value="plastico">Plástico</option>
-            <option value="papelao">Papelão</option>
-            <option value="metal">Metal</option>
-            <option value="tetra_pak">Tetra Pak</option>
-            <option value="outro">Outro</option>
-          </select>
-          <div className="mb-10">  </div>
-          {description.includes("outro") && (
-            <>
-             <TextInput
-                            required
-                            label="Especifique o material:"
-                            placeholder="Material"
-                            type="text"
-                            name="descriptionOther"
-                            containerClassName="text-left w-full -mt-10 mb-10"
-                            labelClassName="text-black text-2xl"
-                            inputClassName="border-black text-black"
-                        />
-            </>
-          )}
+                            <div className="flex flex-col">
+                                <label className="text-lg">6 - Descrição do material orgânico:</label>
 
-          <h3 className= "flex text-left text-2xl font-semibold text-own-black sm:text-2xl justify-center mt-28  mb-28">Lixo Úmido - Orgânico</h3>
+                                <MultiSelect
+                                    options={[
+                                        { value: "verduras", label: "Verduras" },
+                                        { value: "legumes", label: "Legumes" },
+                                        { value: "frutas", label: "Frutas" },
+                                        { value: "cafe", label: "Filtro e borra de café" },
+                                        { value: "cha", label: "Sachê de chá" },
+                                        { value: "casca_ovo", label: "Casca de ovo" },
+                                        { value: "outro", label: "Outro" },
+                                    ]}
+                                    onChange={setOrganicDescription}
+                                    selected={organicDescription}
+                                />
+                                {organicDescription.includes("outro") && (
+                                    <>
+                                        <TextInput
+                                            required
+                                            label="Especifique o material:"
+                                            placeholder="Material"
+                                            type="text"
+                                            name="organicDescriptionOther"
+                                            containerClassName="text-left w-full mt-4"
+                                            labelClassName="text-black"
+                                            inputClassName="border-black text-black"
+                                        />
+                                    </>
+                                )}
+                            </div>
+                            <div>
+                                <h2 className="text-lg">Poste aqui a foto evidenciando a composição do seu resíduo orgânico: (max 5)</h2>
+                                <input type="file" name="organicResidueComposition" multiple accept="image/*" />
+                            </div>
+                        </div>
 
-          <label className="text-black text-2xl">4 - Volume (Litros):</label>
-          <select name="organicVolume" value={organicVolume} onChange={(e) => setOrganicVolume(e.target.value)}>
-            <option value="2">1 pote de sorvete cheio</option>
-            <option value="1">1/2 pote de sorvete</option>
-            <option value="4">2 potes de sorvete cheios</option>
-            <option value="3">1 pote e 1/2 de sorvete</option>
-            <option value="outro">Outro</option>
-          </select>
-          <div className="mb-10">  </div>
-          {organicVolume === "outro" && (
-            <>
-            <TextInput
-                            required
-                            label="Especifique o volume:"
-                            placeholder="volume"
-                            type="text"
-                            name="organicVolumeOther"
-                            containerClassName="text-left w-full -mt-20 mb-10"
-                            labelClassName="text-black text-2xl"
-                            inputClassName="border-black text-black"
-                        />
-            </>
-          )}
+                        <div className="mt- flex flex-col gap-6">
+                            <div>
+                                <h3 className="mb-2 flex justify-center text-left text-2xl">Rejeitos (materiais não recicláveis)</h3>
+                            </div>
 
+                            <div>
+                                <TextInput
+                                    required
+                                    label="7 - Rejeitos: Descreva os rejeitos gerados:"
+                                    placeholder="Descrição de rejeitos"
+                                    type="text"
+                                    name="wastes"
+                                    containerClassName="text-left w-full"
+                                    labelClassName="text-black"
+                                    inputClassName="border-black text-black"
+                                />
+                            </div>
 
-          <TextInput
-                            required
-                            label="5- Peso (em gramas):"
-                            placeholder="Peso"
-                            type="text"
-                            name="organicWeight"
-                            containerClassName="text-left w-full mb-10"
-                            labelClassName="text-black text-2xl"
-                            inputClassName="border-black text-black"
-                        />
+                            <div>
+                                <TextInput
+                                    required
+                                    type="text"
+                                    label="8 - Rejeitos: Descreva o volume dos rejeitos gerados:"
+                                    placeholder="volume de rejeitos"
+                                    name="wastesVolume"
+                                    containerClassName="text-left w-full"
+                                    labelClassName="text-black"
+                                    inputClassName="border-black text-black"
+                                    inputMode="numeric"
+                                    pattern="[0-9]*"
+                                />
+                            </div>
+                        </div>
 
-<label className="text-black text-2xl ">6 - Descrição do material orgânico:</label>
-          <select
-            name="organicDescription"
-            multiple
-            value={organicDescription}
-            onChange={(e) =>
-              setOrganicDescription(Array.from(e.target.selectedOptions, (option) => option.value))
-            }
-          >
-            <option value="verduras">Verduras</option>
-            <option value="legumes">Legumes</option>
-            <option value="frutas">Frutas</option>
-            <option value="cafe">Filtro e borra de café</option>
-            <option value="cha">Sachê de chá</option>
-            <option value="casca_ovo">Casca de ovo</option>
-            <option value="outro">Outro</option>
-          </select>
-<div className="mb-10">  </div>
-          {organicDescription.includes("outro") && (
-            <>
-            <TextInput
-                            required
-                            label="Especifique o material orgânico:"
-                            placeholder="Descrição de material"
-                            type="text"
-                            name="organicDescriptionOther"
-                            containerClassName="text-left w-full -mt-20 mb-10"
-                            labelClassName="text-black text-2xl"
-                            inputClassName="border-black text-black"
-                        />
-            </>
-          )}
-<h3 className= "flex text-left text-2xl font-semibold text-own-black sm:text-2xl justify-center mt-28  mb-28">Rejeitos (materiais não recicláveis)</h3>
-
- <TextInput
-                            required
-                            label="7 - Rejeitos: Descreva os rejeitos gerados:"
-                            placeholder="Descrição de rejeitos"
-                            type="text"
-                            name="rejeitos"
-                            containerClassName="text-left w-full mb-10 "
-                            labelClassName="text-black text-2xl"
-                            inputClassName="border-black text-black"
-                        />
-
-<TextInput
-                            required
-                            label="8 - Rejeitos: Descreva o volume dos rejeitos gerados:"
-                            placeholder="volume de rejeitos"
-                            type="number"
-                            name="rejeitos"
-                            containerClassName="text-left w-full mb-10"
-                            labelClassName="text-black text-2xl"
-                            inputClassName="border-black text-black"
-                        />
-          <button className= "flex  text-3xl font-semibold text-own-black sm:text-3xl justify-center w-min mx-96  mt-20  mb-20" type="submit">Salvar</button>
-        </form>
-      </div>
-    </Wrapper>
-  );
+                        <Button>Salvar</Button>
+                    </form>
+                </div>
+            </Wrapper>
+        </div>
+    );
 };
-
-
-
-
 
 export default Form;

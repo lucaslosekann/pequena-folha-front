@@ -17,3 +17,7 @@ export async function getPartners() {
 export function getPartnerImageUrl(id: number) {
     return `${instance.defaults.baseURL}/partner/image/${id}`;
 }
+
+export async function submitForm(data: FormData) {
+    await instance.post("/form", data);
+}
