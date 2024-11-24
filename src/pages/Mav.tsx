@@ -1,8 +1,26 @@
 import Wrapper from "../components/Wrapper";
 import TextInput from "../components/TextInput";
 import Button from "../components/Button";
+import { createUser } from "../services/api";
+import { toast } from "react-toastify";
 
 export default function Mav() {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+        const data = Object.fromEntries(formData.entries());
+        await createUser({
+            ...data,
+            houseResidents: Number(data.houseResidents),
+        } as any)
+            .then(() => {
+                toast.success("Usuário criado com sucesso!");
+            })
+            .catch((error) => {
+                toast.error(error.response.data.message || "Erro ao criar usuário");
+            });
+    };
+
     return (
         <Wrapper className="flex flex-col gap-8 px-3 sm:px-0">
             <div className="flex flex-col justify-between gap-3 text-lg sm:flex-row sm:gap-0 sm:text-2xl">
@@ -38,7 +56,7 @@ export default function Mav() {
             <div className="flex justify-center">
                 <hr className="mx-auto h-[5px] w-[90%] bg-own-green" />
             </div>
-            <form className="flex flex-col gap-10 text-left">
+            <form className="flex flex-col gap-10 text-left" onSubmit={handleSubmit}>
                 <div className="flex flex-col gap-4 sm:flex-row sm:gap-12">
                     {/* flex-1 -> ocupa todo o espaço que consegue */}
                     <div className="flex flex-1 flex-col gap-4 sm:gap-0">
@@ -47,7 +65,7 @@ export default function Mav() {
                             label="Nome Completo"
                             placeholder="João Silva"
                             type="text"
-                            name="nome"
+                            name="name"
                             containerClassName="w-full"
                             labelClassName="text-black"
                             inputClassName="border-black text-black"
@@ -57,7 +75,7 @@ export default function Mav() {
                             label="Enderço"
                             placeholder="Seu endereço"
                             type="text"
-                            name="endereco"
+                            name="address"
                             containerClassName="w-full"
                             labelClassName="text-black"
                             inputClassName="border-black text-black"
@@ -67,7 +85,7 @@ export default function Mav() {
                             label="Bairro - CEP/Cidade(UF)"
                             placeholder="Fazenda - 88302-080/Itajaí SC"
                             type="text"
-                            name="complementoendereco"
+                            name="addressDetails"
                             containerClassName="w-full"
                             labelClassName="text-black"
                             inputClassName="border-black text-black"
@@ -77,12 +95,31 @@ export default function Mav() {
                         <TextInput
                             required
                             label="Telefone com DDD"
-                            placeholder="47 999999999"
+                            placeholder="(47) 99999-9999"
                             type="text"
-                            name="telefoneddd"
+                            name="phone"
                             containerClassName="w-full"
                             labelClassName="text-black"
                             inputClassName="border-black text-black"
+                            mask={(e) => {
+                                e.currentTarget.maxLength = 15;
+                                let val = e.currentTarget.value;
+
+                                val = val.replace(/\D/g, "");
+
+                                if (val.length > 10) {
+                                    val = val.replace(/^(\d{2})(\d{5})(\d{4}).*/, "($1) $2-$3");
+                                } else if (val.length > 7) {
+                                    val = val.replace(/^(\d{2})(\d{4,5})/, "($1) $2-");
+                                } else if (val.length > 2) {
+                                    val = val.replace(/^(\d{2})(\d+)/, "($1) $2");
+                                } else if (val.length > 0) {
+                                    val = val.replace(/^(\d{1,2})/, "($1");
+                                }
+
+                                e.currentTarget.value = val;
+                                return e;
+                            }}
                         />
                         <TextInput
                             required
@@ -104,7 +141,7 @@ export default function Mav() {
                             type="text"
                             inputMode="numeric"
                             pattern="[0-9]*"
-                            name="nresidentes"
+                            name="houseResidents"
                             containerClassName="w-full"
                             labelClassName="text-black"
                             inputClassName="border-black text-black"

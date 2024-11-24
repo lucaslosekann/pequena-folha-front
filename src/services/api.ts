@@ -26,3 +26,8 @@ export async function login(data: { email: string; password: string }) {
     const response = await instance.post("/login", data);
     return response.data;
 }
+
+export async function createUser(data: { email: string; phone: string; address: string; houseResidents: number; addressDetails: string }) {
+    const response = await instance.post("/user", data);
+    return response.data;
+}
