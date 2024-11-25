@@ -15,6 +15,8 @@ export type Agenda = {
     place: string;
     type: string;
     description: string;
+    additionalText: string;
+    eventsImages: { id: number }[];
 };
 
 export async function getPartners() {
@@ -28,5 +30,9 @@ export function getPartnerImageUrl(id: number) {
 
 export async function getAgenda() {
     const response = await instance.get<Agenda[]>("/agenda");
-    return response.data
+    return response.data;
+}
+
+export function getAgendaImageUrl(id: number) {
+    return `${instance.defaults.baseURL}/agenda/image/${id}`;
 }
