@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import AdminPreviousEventsTab from "../components/AdminPreviousEventsTab";
 import AdminAgendaTab from "../components/AdminAgendaTab";
@@ -28,7 +28,14 @@ const TABS: {
 };
 
 export default function Admin() {
-    const [selectedTab, setSelectedTab] = useState(Object.keys(TABS)[0]);
+    const [selectedTab, setSelectedTab] = useState(new URLSearchParams(window.location.search).get("tab") || Object.keys(TABS)[0]);
+
+    useEffect(() => {
+        const q = new URLSearchParams(window.location.search);
+        q.set("tab", selectedTab);
+        window.history.replaceState(null, "", `${window.location.pathname}?${q.toString()}`);
+    }, [selectedTab]);
+
     return (
         <div className="flex min-h-screen flex-col">
             <Header />
