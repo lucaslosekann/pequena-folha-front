@@ -24,6 +24,16 @@ export type Registration = {
     hasPassword: boolean;
 };
 
+export type Agenda = {
+    id: number;
+    dateTime: string;
+    place: string;
+    type: string;
+    description: string;
+    additionalText?: string;
+    eventsImages: { id: number }[];
+};
+
 export async function getPartners() {
     const response = await instance.get<Partner[]>("/partner");
     return response.data;
@@ -83,4 +93,13 @@ export async function submitForm(data: FormData) {
 export async function login(data: { email: string; password: string }) {
     const response = await instance.post("/login", data);
     return response.data;
+}
+
+export async function getAgenda() {
+    const response = await instance.get<Agenda[]>("/agenda");
+    return response.data;
+}
+
+export function getAgendaImageUrl(id: number) {
+    return `${instance.defaults.baseURL}/agenda/image/${id}`;
 }

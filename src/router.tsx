@@ -8,6 +8,7 @@ import Mav from "./pages/Mav";
 import Admin from "./pages/Admin";
 import Formulary from "./pages/Formulary";
 import AuthMiddleware, { AuthType } from "./components/AuthMiddleware";
+import Agenda from "./pages/Agenda";
 
 const router = createBrowserRouter([
     {
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
                 <Formulary />
             </AuthMiddleware>
         ),
+    },
+    {
+        path: "/agenda",
+        element: <Agenda />,
     },
 ]);
 
