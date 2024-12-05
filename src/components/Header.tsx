@@ -1,6 +1,7 @@
 import { useState } from "react";
 import logo from "../assets/logo.webp";
 import { useAuth } from "../contexts/AuthContext";
+import { Link } from "react-router-dom";
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
@@ -61,14 +62,14 @@ const Routes = () => {
     const { isLoggedIn, user } = useAuth();
     return (
         <>
-            {user?.isAdmin && <a href="/admin">Admin</a>}
-            <a href="/">Início</a>
-            <a href="/compostagem">Compostagem</a>
-            <a href="/MAV">MAV</a>
-            <a href="/parceiros">Parceiros</a>
-            <a href="/agenda">Agenda</a>
-            <a href="/sobre">Sobre</a>
-            {isLoggedIn ? <a href="/formulario">Formulario</a> : <a href="/entrar">Entrar</a>}
+            {user?.isAdmin && <Link to="/admin">Admin</Link>}
+            <Link to="/">Início</Link>
+            <Link to="/compostagem">Compostagem</Link>
+            <Link to="/MAV">MAV</Link>
+            <Link to="/parceiros">Parceiros</Link>
+            <Link to="/agenda">Agenda</Link>
+            <Link to="/sobre">Sobre</Link>
+            {isLoggedIn ? <Link to="/formulario">Formulario</Link> : <Link to="/entrar">Entrar</Link>}
         </>
     );
 };

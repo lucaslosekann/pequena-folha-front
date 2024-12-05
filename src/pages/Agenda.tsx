@@ -31,30 +31,38 @@ const carrosselSettings = (slidesToShow: number = 1) => ({
     ),
 });
 
-const CarrosselProximosEventos = ({ eventsArray: nextEventsArray }: EventsProps) => {
-    const settings = carrosselSettings(3);
+export const CarrosselProximosEventos = () => {
+    const [nextEventsArray, setAgenda] = React.useState<AgendaType[]>([]);
 
-    return (
+    useEffect(() => {
+        getAgenda().then((response) => {
+            setAgenda(response);
+        });
+    }, []);
+
+    const settings = carrosselSettings(3);
+    const filtered = nextEventsArray.filter((agendaEvents) => new Date(agendaEvents.dateTime).getTime() >= Date.now());
+    return filtered.length > 0 ? (
         <div className="slider-container text-left">
             <Slider {...settings}>
-                {nextEventsArray
-                    .filter((agendaEvents) => new Date(agendaEvents.dateTime).getTime() >= Date.now())
-                    .map((agendaEvents) => (
-                        <div
-                            key={agendaEvents.id}
-                            className="aspect-video rounded-lg border-4 border-own-green bg-own-green p-4 text-lg text-white shadow-lg"
-                        >
-                            <div className="flex h-full w-full flex-col justify-center">
-                                <h3>
-                                    📅{new Date(agendaEvents.dateTime).toLocaleDateString("pt-BR", { hour: "2-digit", minute: "2-digit" })}
-                                </h3>
-                                <h3>📍{agendaEvents.place}</h3>
-                                <h3>🌱{agendaEvents.type}</h3>
-                                <h3>🗒️{agendaEvents.description}</h3>
-                            </div>
+                {filtered.map((agendaEvents) => (
+                    <div
+                        key={agendaEvents.id}
+                        className="aspect-video rounded-lg border-4 border-own-green bg-own-green p-4 text-lg text-white shadow-lg"
+                    >
+                        <div className="flex h-full w-full flex-col justify-center">
+                            <h3>📅{new Date(agendaEvents.dateTime).toLocaleDateString("pt-BR", { hour: "2-digit", minute: "2-digit" })}</h3>
+                            <h3>📍{agendaEvents.place}</h3>
+                            <h3>🌱{agendaEvents.type}</h3>
+                            <h3>🗒️{agendaEvents.description}</h3>
                         </div>
-                    ))}
+                    </div>
+                ))}
             </Slider>
+        </div>
+    ) : (
+        <div className="text-center">
+            <h3 className="text-2xl">Não há eventos agendados</h3>
         </div>
     );
 };
@@ -80,7 +88,7 @@ const CarrosselImagesModal = ({ event }: { event: AgendaType }) => {
     );
 };
 
-const CarrosselEventosAnteriores = ({ eventsArray: previousEventsArray }: EventsProps) => {
+export const CarrosselEventosAnteriores = ({ eventsArray: previousEventsArray }: EventsProps) => {
     const settings = carrosselSettings(3);
 
     const [currentSlide, setCurrentSlide] = React.useState<AgendaType | null>(null);
@@ -103,7 +111,7 @@ const CarrosselEventosAnteriores = ({ eventsArray: previousEventsArray }: Events
             dateTime: new Date(agendaEvents.dateTime).toLocaleDateString(),
         }));
 
-    return (
+    return slides.length > 0 ? (
         <div className="slider-container text-left">
             <Slider {...settings}>
                 {slides.map((slide, index) => (
@@ -157,6 +165,10 @@ const CarrosselEventosAnteriores = ({ eventsArray: previousEventsArray }: Events
                 </div>
             )}
         </div>
+    ) : (
+        <div className="text-center">
+            <h3 className="text-2xl">Não há eventos anteriores</h3>
+        </div>
     );
 };
 
@@ -173,7 +185,7 @@ export default function Agenda() {
         <Wrapper>
             <div>
                 <h2 className="mb-10 text-left text-2xl font-semibold text-own-green sm:text-4xl">PRÓXIMOS EVENTOS</h2>
-                <CarrosselProximosEventos eventsArray={agendaEvents} />
+                <CarrosselProximosEventos />
             </div>
             <div className="h-10"></div>
             <div className="mb-10">
