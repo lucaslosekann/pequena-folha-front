@@ -5,28 +5,29 @@ import RightArrow from "../assets/RightArrow.svg";
 import LeftArrow from "../assets/LeftArrow.svg";
 import { getAgenda, getAgendaImageUrl, Agenda as AgendaType } from "../services/api";
 import Button from "../components/Button";
+import ReactQuill from "react-quill";
 
 type EventsProps = {
     eventsArray: AgendaType[];
 };
 
 const carrosselSettings = (slidesToShow: number = 1) => ({
-    dots: false,
-    infinite: true,
+    dots: true,
+    infinite: false,
     speed: 500,
     slidesToShow: slidesToShow,
     slidesToScroll: 1,
     nextArrow: (
         <div>
             <div className="next-slick-arrow">
-                <img src={RightArrow} className="-translate-y-full" />
+                <img src={RightArrow} className="h-[75%] w-[75%] -translate-y-full" />
             </div>
         </div>
     ),
     prevArrow: (
         <div>
             <div className="next-slick-arrow">
-                <img src={LeftArrow} className="-translate-y-full" />
+                <img src={LeftArrow} className="h-[75%] w-[75%] -translate-y-full" />
             </div>
         </div>
     ),
@@ -60,28 +61,22 @@ const CarrosselProximosEventos = ({ eventsArray: nextEventsArray }: EventsProps)
     );
 };
 
-const CarrosselImagesModal = ({ eventsArray: nextEventsArray }: EventsProps, index: Number) => {
+const CarrosselImagesModal = ({ event }: { event: AgendaType }) => {
     const settings = carrosselSettings(1);
 
     return (
         <div className="slider-container text-left">
             <Slider {...settings}>
-                {nextEventsArray
-                    .filter((agendaEvents) => new Date(agendaEvents.dateTime).getTime() < Date.now())
-                    .map((agendaEvents) => (
-                        <div key={agendaEvents.id}>
-                            {agendaEvents.eventsImages.map((image, index) => (
-                                <div className="flex items-center">
-                                    <img
-                                        key={index}
-                                        src={getAgendaImageUrl(image.id)}
-                                        alt={`Event ${agendaEvents.id} Image ${index + 1}`}
-                                        className="flex h-auto w-auto object-contain"
-                                    />
-                                </div>
-                            ))}
-                        </div>
-                    ))}
+                {event.eventsImages.map((image, index) => (
+                    <div className="flex items-center">
+                        <img
+                            key={index}
+                            src={getAgendaImageUrl(image.id)}
+                            alt={`Event ${event.id} Image ${index + 1}`}
+                            className="flex h-auto w-auto object-contain"
+                        />
+                    </div>
+                ))}
             </Slider>
         </div>
     );
@@ -104,7 +99,7 @@ const CarrosselEventosAnteriores = ({ eventsArray: previousEventsArray }: Events
     };
 
     const slides = previousEventsArray
-        .filter((agendaEvents) => new Date(agendaEvents.dateTime).getTime() < Date.now())
+        .filter((agendaEvents) => new Date(agendaEvents.dateTime).getTime() < Date.now() && agendaEvents.eventsImages.length > 0)
         .map((agendaEvents) => ({
             ...agendaEvents,
             dateTime: new Date(agendaEvents.dateTime).toLocaleDateString(),
@@ -133,23 +128,32 @@ const CarrosselEventosAnteriores = ({ eventsArray: previousEventsArray }: Events
             </Slider>
 
             {isModalOpen && (
-                <div className="fixed inset-0 z-[1055] flex items-center justify-center bg-black bg-opacity-50" onClick={closeModal}>
+                <div className="fixed inset-0 z-[1055] flex items-center justify-center bg-black bg-opacity-60" onClick={closeModal}>
                     <div
-                        className="flex max-h-[90vh] w-[90%] max-w-[800px] flex-col gap-3 overflow-y-auto border-8 bg-white p-5 text-justify"
+                        className="flex max-h-[90vh] w-[90%] max-w-[800px] flex-col gap-3 overflow-y-auto rounded-lg bg-white p-5 text-justify"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {currentSlide && (
-                            <>
+                            <div className="flex flex-col gap-3 text-xl">
                                 <h2>📅{currentSlide.dateTime}</h2>
                                 <h2>🌱{currentSlide.type}</h2>
-                                <h2>🗒️{currentSlide.additionalText}</h2>
-                            </>
+                            </div>
                         )}
-                        <div className="h-[30%] w-[30%]">
-                            <CarrosselImagesModal eventsArray={previousEventsArray} />
+                        <div className="mx-auto w-[60%]">
+                            <CarrosselImagesModal event={currentSlide!} />
                         </div>
-                        <div className="w-[25%]">
-                            <Button children="Fechar" onClick={closeModal}></Button>
+                        <div>
+                            {currentSlide && (
+                                <div className="w-full">
+                                    <div className="ql-editor" dangerouslySetInnerHTML={{ __html: currentSlide.additionalText }} />
+                                    {/* <ReactQuill value={currentSlide.additionalText} readOnly={true} theme={"snow"} /> */}
+                                </div>
+                            )}
+                        </div>
+                        <div className="flex justify-end">
+                            <div className="w-[25%]">
+                                <Button children="Fechar" onClick={closeModal}></Button>
+                            </div>
                         </div>
                     </div>
                 </div>
