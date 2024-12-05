@@ -1,18 +1,14 @@
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
-import AdminPreviousEventsTab from "../components/AdminPreviousEventsTab";
 import AdminAgendaTab from "../components/AdminAgendaTab";
 import AdminPartnersTab from "../components/AdminPartnersTab";
 import AdminRegistrationsTab from "../components/AdminRegistrationsTab";
 import { cn } from "../lib/utils";
+import AdminFormsTab from "../components/AdminFormsTab";
 
 const TABS: {
     [key: string]: { label: string; component: React.ReactNode };
 } = {
-    prev_events: {
-        label: "Eventos Anteriores",
-        component: <AdminPreviousEventsTab />,
-    },
     agenda: {
         label: "Agenda",
         component: <AdminAgendaTab />,
@@ -24,6 +20,10 @@ const TABS: {
     registrations: {
         label: "Cadastros",
         component: <AdminRegistrationsTab />,
+    },
+    forms: {
+        label: "Formulários",
+        component: <AdminFormsTab />,
     },
 };
 

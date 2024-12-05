@@ -105,10 +105,10 @@ const Form = () => {
                                     required
                                     className="mt-2 w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900"
                                 >
-                                    <option value="5">Sacola de supermercado (5 Litros)</option>
-                                    <option value="15">Saco de lixo (15 Litros)</option>
-                                    <option value="30">Saco de lixo (30 Litros)</option>
-                                    <option value="50">Saco de lixo (50 Litros)</option>
+                                    <option value="Sacola de supermercado (5 Litros)">Sacola de supermercado (5 Litros)</option>
+                                    <option value="Saco de lixo (15 Litros)">Saco de lixo (15 Litros)</option>
+                                    <option value="Saco de lixo (30 Litros)">Saco de lixo (30 Litros)</option>
+                                    <option value="Saco de lixo (50 Litros)">Saco de lixo (50 Litros)</option>
                                     <option value="outro">Outro</option>
                                 </select>
 
@@ -122,8 +122,6 @@ const Form = () => {
                                         containerClassName="text-left w-full mt-4"
                                         labelClassName="text-black"
                                         inputClassName="border-black text-black"
-                                        inputMode="numeric"
-                                        pattern="[0-9]*"
                                     />
                                 )}
                             </div>
@@ -148,14 +146,14 @@ const Form = () => {
 
                                 <MultiSelect
                                     options={[
-                                        { value: "garrafa_pet", label: "Garrafa PET" },
-                                        { value: "isopor", label: "Isopor" },
-                                        { value: "vidro", label: "Vidro" },
-                                        { value: "papel", label: "Papel" },
-                                        { value: "plastico", label: "Plástico" },
-                                        { value: "papelao", label: "Papelão" },
-                                        { value: "metal", label: "Metal" },
-                                        { value: "tetra_pak", label: "Tetra Pak" },
+                                        { value: "Garrafa PET", label: "Garrafa PET" },
+                                        { value: "Isopor", label: "Isopor" },
+                                        { value: "Vidro", label: "Vidro" },
+                                        { value: "Papel", label: "Papel" },
+                                        { value: "Plástico", label: "Plástico" },
+                                        { value: "Papelão", label: "Papelão" },
+                                        { value: "Metal", label: "Metal" },
+                                        { value: "Tetra Pak", label: "Tetra Pak" },
                                         { value: "outro", label: "Outro" },
                                     ]}
                                     onChange={setInorganicDescription}
@@ -201,10 +199,10 @@ const Form = () => {
                                     required
                                     className="mt-2 w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900"
                                 >
-                                    <option value="2">1 pote de sorvete cheio</option>
-                                    <option value="1">1/2 pote de sorvete</option>
-                                    <option value="4">2 potes de sorvete cheios</option>
-                                    <option value="3">1 pote e 1/2 de sorvete</option>
+                                    <option value="1 pote de sorvete cheio">1 pote de sorvete cheio</option>
+                                    <option value="1/2 pote de sorvete">1/2 pote de sorvete</option>
+                                    <option value="2 potes de sorvete cheios">2 potes de sorvete cheios</option>
+                                    <option value="1 pote e 1/2 de sorvete">1 pote e 1/2 de sorvete</option>
                                     <option value="outro">Outro</option>
                                 </select>
 
@@ -218,8 +216,6 @@ const Form = () => {
                                         containerClassName="text-left w-full mt-4"
                                         labelClassName="text-black"
                                         inputClassName="border-black text-black"
-                                        inputMode="numeric"
-                                        pattern="[0-9]*"
                                     />
                                 )}
                             </div>
@@ -244,12 +240,12 @@ const Form = () => {
 
                                 <MultiSelect
                                     options={[
-                                        { value: "verduras", label: "Verduras" },
-                                        { value: "legumes", label: "Legumes" },
-                                        { value: "frutas", label: "Frutas" },
-                                        { value: "cafe", label: "Filtro e borra de café" },
-                                        { value: "cha", label: "Sachê de chá" },
-                                        { value: "casca_ovo", label: "Casca de ovo" },
+                                        { value: "Verduras", label: "Verduras" },
+                                        { value: "Legumes", label: "Legumes" },
+                                        { value: "Frutas", label: "Frutas" },
+                                        { value: "Filtro e borra de café", label: "Filtro e borra de café" },
+                                        { value: "Sachê de chá", label: "Sachê de chá" },
+                                        { value: "Casca de ovo", label: "Casca de ovo" },
                                         { value: "outro", label: "Outro" },
                                     ]}
                                     onChange={setOrganicDescription}
@@ -304,8 +300,6 @@ const Form = () => {
                                     containerClassName="text-left w-full"
                                     labelClassName="text-black"
                                     inputClassName="border-black text-black"
-                                    inputMode="numeric"
-                                    pattern="[0-9]*"
                                 />
                             </div>
                         </div>

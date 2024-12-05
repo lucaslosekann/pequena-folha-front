@@ -34,6 +34,39 @@ export type Agenda = {
     eventsImages: { id: number }[];
 };
 
+export type SubmitedForm = {
+    id: number;
+    userId: number;
+    date: string;
+    inorganicVolume: string;
+    inorganicWeight: number;
+    inorganicDescriptionOther: any;
+    organicVolume: string;
+    organicWeight: number;
+    organicDescriptionOther: any;
+    wastes: string;
+    wastesVolume: string;
+    createdAt: string;
+    updatedAt: string;
+    inorganicDescription: {
+        id: number;
+        text: string;
+        formId: number;
+    }[];
+    organicDescription: {
+        id: number;
+        text: string;
+        formId: number;
+    }[];
+    residueComposition: {
+        id: number;
+        type: string;
+    }[];
+    User: {
+        name: string;
+    };
+};
+
 export async function getPartners() {
     const response = await instance.get<Partner[]>("/partner");
     return response.data;
@@ -100,6 +133,29 @@ export async function getAgenda() {
     return response.data;
 }
 
+export async function createAgenda(data: { dateTime: string; place: string; type: string; description: string }) {
+    const response = await instance.post("/agenda", data);
+    return response.data;
+}
+
+export async function updatePreviousEvent(data: FormData, id: number) {
+    const response = await instance.put("/agenda/previous/" + id, data);
+    return response.data;
+}
+
+export async function deleteAgenda(id: number) {
+    const response = await instance.delete(`/agenda/${id}`);
+    return response.data;
+}
 export function getAgendaImageUrl(id: number) {
     return `${instance.defaults.baseURL}/agenda/image/${id}`;
+}
+
+export async function getForms() {
+    const response = await instance.get<SubmitedForm[]>("/form");
+    return response.data;
+}
+
+export function getFormImageUrl(id: number) {
+    return `${instance.defaults.baseURL}/form/image/${id}`;
 }

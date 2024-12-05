@@ -6,7 +6,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .slick-slide {
     margin: 0 15px;
 }
@@ -14,7 +13,10 @@
     display: flex !important;
     height: 100%;
 }
-
+.quill {
+    display: flex;
+    flex-direction: column;
+}
 
 @layer base {
     :root {
