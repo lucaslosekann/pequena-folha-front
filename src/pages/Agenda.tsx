@@ -5,8 +5,6 @@ import RightArrow from "../assets/RightArrow.svg";
 import LeftArrow from "../assets/LeftArrow.svg";
 import { getAgenda, getAgendaImageUrl, Agenda as AgendaType } from "../services/api";
 import Button from "../components/Button";
-import ReactQuill from "react-quill";
-
 type EventsProps = {
     eventsArray: AgendaType[];
 };
@@ -145,7 +143,7 @@ const CarrosselEventosAnteriores = ({ eventsArray: previousEventsArray }: Events
                         <div>
                             {currentSlide && (
                                 <div className="w-full">
-                                    <div className="ql-editor" dangerouslySetInnerHTML={{ __html: currentSlide.additionalText }} />
+                                    <div className="ql-editor" dangerouslySetInnerHTML={{ __html: currentSlide.additionalText! }} />
                                     {/* <ReactQuill value={currentSlide.additionalText} readOnly={true} theme={"snow"} /> */}
                                 </div>
                             )}
