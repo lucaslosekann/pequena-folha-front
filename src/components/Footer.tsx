@@ -17,11 +17,15 @@ export default function Footer() {
                 <div className="flex flex-col items-center gap-2 text-center text-sm sm:items-start sm:text-left sm:text-base">
                     <div className="leading-5">
                         <p>Sala Verde Itajaí - UNIVALI</p>
-                        <p>E-mail: salaverde@univali.br</p>
+                        <p>
+                            E-mail: <a href="mailto:salaverde@univali.br">salaverde@univali.br</a>
+                        </p>
                     </div>
                     <div className="leading-5">
                         <p>Projeto Pequena Folha - Sala Verde Univali</p>
-                        <p>E-mail: pequenafolhacompostagem@gmail.com</p>
+                        <p>
+                            E-mail: <a href="mailto:pequenafolhacompostagem@gmail.com">pequenafolhacompostagem@gmail.com</a>
+                        </p>
                     </div>
                     <div>
                         <p>UNIVALI - Rua: Uruguai, 458 - Centro - Itajaí (SC). CEP.: 88302-901</p>

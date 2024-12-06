@@ -27,9 +27,9 @@ export default function Mav() {
                 <div className="flex flex-col gap-2 sm:gap-5">
                     <h2 className="text-left text-2xl font-semibold text-own-green sm:text-4xl">O QUE É O MAV?</h2>
                     <p>
-                        É uma metodologia de coleta de dados sistemático e contínuo de parâmetros, indicadores e impactos ambientais, que
-                        visa avaliar o comportamento dos ecossistemas e medidas de gestão ambiental, podendo ser adaptada para diversos
-                        objetivos de pesquisa.
+                        O Monitoramento Ambiental Voluntário (MAV) é uma metodologia de coleta de dados sistemático e contínuo de
+                        parâmetros, indicadores e impactos ambientais, que visa avaliar o comportamento dos ecossistemas e medidas de gestão
+                        ambiental, podendo ser adaptada para diversos objetivos de pesquisa.
                     </p>
                 </div>
             </div>
@@ -72,7 +72,7 @@ export default function Mav() {
                         />
                         <TextInput
                             required
-                            label="Enderço"
+                            label="Endereço"
                             placeholder="Seu endereço"
                             type="text"
                             name="address"

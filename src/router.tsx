@@ -77,7 +77,11 @@ const router = createBrowserRouter([
     },
     {
         path: "/agenda",
-        element: <Agenda />,
+        element: (
+            <AuthMiddleware type={AuthType.PRIVATE}>
+                <Agenda />,
+            </AuthMiddleware>
+        ),
     },
 ]);
 

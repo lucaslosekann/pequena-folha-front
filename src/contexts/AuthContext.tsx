@@ -52,15 +52,6 @@ const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
         localStorage.setItem("@user", JSON.stringify(user));
     };
 
-    // const signup = async (credentials: any) => {
-    // const { data } = await signupRequest(credentials);
-    // const { token, ...user } = data;
-    // setUser(user);
-    // api.defaults.headers.Authorization = `Bearer ${token}`;
-    // localStorage.setItem("@token", token);
-    // localStorage.setItem("@user", JSON.stringify(user));
-    // };
-
     const logout = () => {
         setUser(undefined);
         localStorage.clear();
